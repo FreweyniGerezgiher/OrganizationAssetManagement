@@ -9,10 +9,7 @@
   <ItemGroup>
     <Folder Include="Common\Behaviors\" />
     <Folder Include="Common\Exceptions\" />
-    <Folder Include="Common\Interfaces\" />
-    <Folder Include="Common\Models\" />
     <Folder Include="Features\Authentication\" />
-    <Folder Include="Features\Assets\" />
     <Folder Include="Features\Documents\" />
     <Folder Include="Features\OrganizationUnits\" />
     <Folder Include="Features\Users\" />

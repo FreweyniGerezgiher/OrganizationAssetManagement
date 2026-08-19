@@ -1,12 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentValidation;
+using Mapster;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
-namespace OrganizationAssetManagement.Application
+namespace OrganizationAssetManagement.Application;
+
+public static class DependencyInjection
 {
-    internal class DependencyInjection
+    public static IServiceCollection AddApplication(
+        this IServiceCollection services)
     {
+        var assembly = Assembly.GetExecutingAssembly();
+
+        services.AddMediatR(configuration =>
+            configuration.RegisterServicesFromAssembly(assembly));
+
+        services.AddValidatorsFromAssembly(assembly);
+
+        return services;
     }
 }
