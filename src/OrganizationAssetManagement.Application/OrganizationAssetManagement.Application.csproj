@@ -10,7 +10,6 @@
     <Folder Include="Common\Behaviors\" />
     <Folder Include="Common\Exceptions\" />
     <Folder Include="Features\Documents\" />
-    <Folder Include="Features\OrganizationUnits\" />
     <Folder Include="Features\Users\" />
   </ItemGroup>
 
