@@ -32,7 +32,9 @@ public class GetAssetByIdQueryHandler
             AssetTag = asset.AssetTag,
             SerialNumber = asset.SerialNumber,
             Description = asset.Description,
-            Status = asset.Status.ToString()
+            Status = asset.Status.ToString(),
+            OrganizationUnitId = asset.OrganizationUnitId,
+            OrganizationUnitName = asset.OrganizationUnit?.Name
         };
     }
 }

@@ -13,4 +13,8 @@ public class AssetDto
     public string? Description { get; set; }
 
     public string Status { get; set; } = string.Empty;
+
+    public Guid? OrganizationUnitId { get; set; }
+
+    public string? OrganizationUnitName { get; set; }
 }

@@ -1,17 +1,16 @@
-﻿using MediatR;
+using MediatR;
 using OrganizationAssetManagement.Application.Common.Interfaces;
 using OrganizationAssetManagement.Application.Common.Models;
-using OrganizationAssetManagement.Domain.Entities;
 
-namespace OrganizationAssetManagement.Application.Features.Assets.Commands.CreateAsset;
+namespace OrganizationAssetManagement.Application.Features.Assets.Commands.UpdateAsset;
 
-public class CreateAssetCommandHandler
-    : IRequestHandler<CreateAssetCommand, AssetDto>
+public class UpdateAssetCommandHandler
+    : IRequestHandler<UpdateAssetCommand, AssetDto>
 {
     private readonly IAssetRepository _assetRepository;
     private readonly IOrganizationUnitRepository _organizationUnitRepository;
 
-    public CreateAssetCommandHandler(
+    public UpdateAssetCommandHandler(
         IAssetRepository assetRepository,
         IOrganizationUnitRepository organizationUnitRepository)
     {
@@ -20,16 +19,23 @@ public class CreateAssetCommandHandler
     }
 
     public async Task<AssetDto> Handle(
-        CreateAssetCommand request,
+        UpdateAssetCommand command,
         CancellationToken cancellationToken)
     {
+        var asset = await _assetRepository.GetByIdAsync(command.Id);
+
+        if (asset == null)
+        {
+            throw new Exception("Asset was not found.");
+        }
+
         string? organizationUnitName = null;
 
-        if (request.OrganizationUnitId.HasValue)
+        if (command.OrganizationUnitId.HasValue)
         {
             var organizationUnit =
                 await _organizationUnitRepository.GetByIdAsync(
-                    request.OrganizationUnitId.Value);
+                    command.OrganizationUnitId.Value);
 
             if (organizationUnit == null)
             {
@@ -39,19 +45,18 @@ public class CreateAssetCommandHandler
             organizationUnitName = organizationUnit.Name;
         }
 
-        var asset = new Asset
-        {
-            Id = Guid.NewGuid(),
-            Name = request.Name,
-            AssetTag = request.AssetTag,
-            SerialNumber = request.SerialNumber,
-            Description = request.Description,
-            Status = request.Status,
-            OrganizationUnitId = request.OrganizationUnitId,
-            CreatedAt = DateTime.UtcNow
-        };
+        asset.Name = command.Name;
+        asset.AssetTag = command.AssetTag;
+        asset.SerialNumber = command.SerialNumber;
+        asset.Description = command.Description;
+        asset.OrganizationUnitId = command.OrganizationUnitId;
 
-        await _assetRepository.AddAsync(asset);
+        if (command.Status.HasValue)
+        {
+            asset.Status = command.Status.Value;
+        }
+
+        await _assetRepository.UpdateAsync(asset);
 
         return new AssetDto
         {

@@ -1,11 +1,11 @@
-﻿using FluentValidation;
+using FluentValidation;
 
-namespace OrganizationAssetManagement.Application.Features.Assets.Commands.CreateAsset;
+namespace OrganizationAssetManagement.Application.Features.Assets.Commands.UpdateAsset;
 
-public class CreateAssetCommandValidator
-    : AbstractValidator<CreateAssetCommand>
+public class UpdateAssetCommandValidator
+    : AbstractValidator<UpdateAssetCommand>
 {
-    public CreateAssetCommandValidator()
+    public UpdateAssetCommandValidator()
     {
         RuleFor(x => x.Name)
             .NotEmpty()
