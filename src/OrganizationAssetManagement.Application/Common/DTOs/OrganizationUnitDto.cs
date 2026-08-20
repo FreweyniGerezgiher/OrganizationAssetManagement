@@ -7,4 +7,8 @@ public class OrganizationUnitDto
     public string Name { get; set; } = string.Empty;
 
     public string? Description { get; set; }
+
+    public Guid? ParentOrganizationUnitId { get; set; }
+
+    public string? ParentOrganizationUnitName { get; set; }
 }

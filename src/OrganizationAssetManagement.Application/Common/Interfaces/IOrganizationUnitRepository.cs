@@ -9,4 +9,8 @@ public interface IOrganizationUnitRepository
     Task<List<OrganizationUnit>> GetAllAsync();
 
     Task AddAsync(OrganizationUnit organizationUnit);
+
+    Task UpdateAsync(OrganizationUnit organizationUnit);
+
+    Task DeleteAsync(OrganizationUnit organizationUnit);
 }

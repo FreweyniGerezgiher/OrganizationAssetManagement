@@ -23,9 +23,15 @@ public class ApplicationDbContext : DbContext
     public DbSet<Document> Documents { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
         modelBuilder.ApplyConfigurationsFromAssembly(
             typeof(ApplicationDbContext).Assembly);
 
-        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<OrganizationUnit>()
+            .HasOne(x => x.ParentOrganizationUnit)
+            .WithMany(x => x.Children)
+            .HasForeignKey(x => x.ParentOrganizationUnitId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }
