@@ -17,12 +17,15 @@ public class AssetRepository : IAssetRepository
     public async Task<Asset?> GetByIdAsync(Guid id)
     {
         return await _context.Assets
+            .Include(x => x.OrganizationUnit)
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<List<Asset>> GetAllAsync()
     {
-        return await _context.Assets.ToListAsync();
+        return await _context.Assets
+            .Include(x => x.OrganizationUnit)
+            .ToListAsync();
     }
 
     public async Task AddAsync(Asset asset)

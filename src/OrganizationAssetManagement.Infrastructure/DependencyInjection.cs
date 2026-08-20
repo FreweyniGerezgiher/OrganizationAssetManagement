@@ -19,6 +19,9 @@ public static class DependencyInjection
                 configuration.GetConnectionString("DefaultConnection")));
 
         services.AddScoped<IAssetRepository, AssetRepository>();
+        services.AddScoped<IAssetAssignmentRepository,AssetAssignmentRepository>();
+
+        services.AddScoped<IAssetHistoryRepository, AssetHistoryRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IOrganizationUnitRepository, OrganizationUnitRepository>();
         services.AddScoped<IDocumentRepository, DocumentRepository>();

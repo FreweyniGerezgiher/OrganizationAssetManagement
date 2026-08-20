@@ -6,6 +6,9 @@ using OrganizationAssetManagement.Application.Features.Assets.Commands.UpdateAss
 using OrganizationAssetManagement.Application.Features.Assets.Commands.DeleteAsset;
 using OrganizationAssetManagement.Application.Features.Assets.Queries.GetAllAssets;
 using OrganizationAssetManagement.Application.Features.Assets.Queries.GetAssetById;
+using OrganizationAssetManagement.Application.Features.Assets.Commands.AssignAsset;
+using OrganizationAssetManagement.Application.Features.Assets.Commands.ReturnAsset;
+using OrganizationAssetManagement.Application.Features.Assets.Queries.GetAssetHistory;
 
 namespace OrganizationAssetManagement.API.Controllers;
 
@@ -60,5 +63,38 @@ public class AssetsController : ControllerBase
     {
         await _mediator.Send(new DeleteAssetCommand(id));
         return Ok(new { message = "Asset deleted successfully." });
+    }
+
+    [HttpPost("{assetId}/assign")]
+    public async Task<IActionResult> Assign(
+    Guid assetId,
+    AssignAssetCommand command)
+    {
+        command.AssetId = assetId;
+
+        var result = await _mediator.Send(command);
+
+        return Ok(result);
+    }
+
+    [HttpPost("{assetId}/return")]
+    public async Task<IActionResult> Return(Guid assetId)
+    {
+        var result = await _mediator.Send(
+            new ReturnAssetCommand
+            {
+                AssetId = assetId
+            });
+
+        return Ok(result);
+    }
+
+    [HttpGet("{assetId}/history")]
+    public async Task<IActionResult> GetHistory(Guid assetId)
+    {
+        var result = await _mediator.Send(
+            new GetAssetHistoryQuery(assetId));
+
+        return Ok(result);
     }
 }
