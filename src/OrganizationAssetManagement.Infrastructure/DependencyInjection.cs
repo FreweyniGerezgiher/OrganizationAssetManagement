@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using OrganizationAssetManagement.Application.Common.Interfaces;
 using OrganizationAssetManagement.Infrastructure.Persistence;
 using OrganizationAssetManagement.Infrastructure.Repositories;
+using OrganizationAssetManagement.Infrastructure.Services;
 
 namespace OrganizationAssetManagement.Infrastructure;
 
@@ -21,6 +22,8 @@ public static class DependencyInjection
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IOrganizationUnitRepository, OrganizationUnitRepository>();
         services.AddScoped<IDocumentRepository, DocumentRepository>();
+        services.AddScoped<IPasswordService, PasswordService>();
+        services.AddScoped<IJwtService, JwtService>();
 
         return services;
     }

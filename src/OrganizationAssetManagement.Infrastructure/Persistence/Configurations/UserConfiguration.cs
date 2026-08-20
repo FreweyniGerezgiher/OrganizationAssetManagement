@@ -21,6 +21,12 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(x => x.Email)
             .IsRequired()
             .HasMaxLength(200);
+        builder.Property(x => x.PasswordHash)
+            .IsRequired();
+
+        builder.Property(x => x.Role)
+            .IsRequired()
+            .HasConversion<string>();
 
         builder.HasOne(x => x.OrganizationUnit)
             .WithMany()
