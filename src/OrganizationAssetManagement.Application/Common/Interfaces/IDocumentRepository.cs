@@ -8,5 +8,9 @@ public interface IDocumentRepository
 
     Task<List<Document>> GetAllAsync();
 
+    Task<List<Document>> GetByAssetIdAsync(Guid assetId);
+
     Task AddAsync(Document document);
+
+    Task DeleteAsync(Document document);
 }

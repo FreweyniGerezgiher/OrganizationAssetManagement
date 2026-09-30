@@ -22,12 +22,27 @@ public class DocumentRepository : IDocumentRepository
 
     public async Task<List<Document>> GetAllAsync()
     {
-        return await _context.Documents.ToListAsync();
+        return await _context.Documents
+            .ToListAsync();
+    }
+
+    public async Task<List<Document>> GetByAssetIdAsync(Guid assetId)
+    {
+        return await _context.Documents
+            .Where(x => x.AssetId == assetId)
+            .OrderByDescending(x => x.CreatedAt)
+            .ToListAsync();
     }
 
     public async Task AddAsync(Document document)
     {
         await _context.Documents.AddAsync(document);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task DeleteAsync(Document document)
+    {
+        _context.Documents.Remove(document);
         await _context.SaveChangesAsync();
     }
 }

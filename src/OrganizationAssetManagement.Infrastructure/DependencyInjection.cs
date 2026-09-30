@@ -19,14 +19,16 @@ public static class DependencyInjection
                 configuration.GetConnectionString("DefaultConnection")));
 
         services.AddScoped<IAssetRepository, AssetRepository>();
-        services.AddScoped<IAssetAssignmentRepository,AssetAssignmentRepository>();
-
-        services.AddScoped<IAssetHistoryRepository, AssetHistoryRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IOrganizationUnitRepository, OrganizationUnitRepository>();
         services.AddScoped<IDocumentRepository, DocumentRepository>();
+        services.AddScoped<IFileService, FileService>();
         services.AddScoped<IPasswordService, PasswordService>();
         services.AddScoped<IJwtService, JwtService>();
+
+        // Register asset assignment/history repositories
+        services.AddScoped<IAssetAssignmentRepository, AssetAssignmentRepository>();
+        services.AddScoped<IAssetHistoryRepository, AssetHistoryRepository>();
 
         return services;
     }
