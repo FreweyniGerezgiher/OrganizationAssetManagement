@@ -17,6 +17,7 @@ public class UserRepository : IUserRepository
     public async Task<User?> GetByIdAsync(Guid id)
     {
         return await _context.Users
+            .Include(x => x.OrganizationUnit)
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
@@ -28,7 +29,9 @@ public class UserRepository : IUserRepository
 
     public async Task<List<User>> GetAllAsync()
     {
-        return await _context.Users.ToListAsync();
+        return await _context.Users
+            .Include(x => x.OrganizationUnit)
+            .ToListAsync();
     }
 
     public async Task AddAsync(User user)

@@ -1,4 +1,4 @@
-﻿namespace OrganizationAssetManagement.Application.Common.Models;
+﻿namespace OrganizationAssetManagement.Application.Common.DTOs;
 
 public class UserDto
 {
@@ -9,4 +9,10 @@ public class UserDto
     public string LastName { get; set; } = string.Empty;
 
     public string Email { get; set; } = string.Empty;
+
+    public string Role { get; set; } = string.Empty;
+
+    public Guid? OrganizationUnitId { get; set; }
+
+    public string? OrganizationUnitName { get; set; }
 }
