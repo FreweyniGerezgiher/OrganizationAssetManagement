@@ -67,8 +67,8 @@ public class AssetsController : ControllerBase
 
     [HttpPost("{assetId}/assign")]
     public async Task<IActionResult> Assign(
-    Guid assetId,
-    AssignAssetCommand command)
+        Guid assetId,
+        AssignAssetCommand command)
     {
         command.AssetId = assetId;
 
